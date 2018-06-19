@@ -5,19 +5,22 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strconv"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
+func (app *App) Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
 	}
 
-	// Initialize a slice containing the paths to the two files.
+	// Because the Home handler function is a now method against App it can access
+	// its fields. So we can build the paths to the HTML template files using the
+	// HTMLDir value in the App instance.
 	files := []string{
-		"./ui/html/base.html",
-		"./ui/html/home.page.html",
+		filepath.Join(app.HTMLDir, "base.html"),
+		filepath.Join(app.HTMLDir, "home.page.html"),
 	}
 
 	// Use the template.ParseFiles() function to read the files and store the
@@ -46,7 +49,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add a placeholder ShowSnippet handler function.
-func ShowSnippet(w http.ResponseWriter, r *http.Request) {
+func (app *App) ShowSnippet(w http.ResponseWriter, r *http.Request) {
 	// Extract the value of the id parameter from the query string and try to
 	// convert it to an integer using the strconv.Atoi() function. If it couldn't
 	// be converted to an integer, or the value is less than 1, we return a 404
@@ -63,6 +66,6 @@ func ShowSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add a placeholder NewSnippet handler function.
-func NewSnippet(w http.ResponseWriter, r *http.Request) {
+func (app *App) NewSnippet(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display the new snippet form..."))
 }
