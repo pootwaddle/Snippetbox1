@@ -12,17 +12,13 @@ func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	htmlDir := flag.String("html-dir", "./ui/html", "Path to HTML templates")
 	staticDir := flag.String("static-dir", "./ui/static", "Path to static assets")
-	// Importantly, we use the flag.Parse() function to parse the command-line flags.
-	// This reads in the command-line flag values and assigns them to the addr and
-	// staticDir variables. You need to parse the flags *before* you use the addr
-	// or staticDir variables, otherwise they will always contain the default value.
-	// If any errors are encountered during parsing the application will be
-	// terminated.
+
 	flag.Parse()
 
 	// Initialize a new instance of App containing the dependencies.
 	app := &App{
-		HTMLDir: *htmlDir,
+		HTMLDir:   *htmlDir,
+		StaticDir: *staticDir,
 	}
 
 	mux := http.NewServeMux()
@@ -46,6 +42,6 @@ func main() {
 	// to listen on. Notice that we also use the log.Printf() function to interpolate
 	// the correct address in the log message.
 	log.Printf("Starting server on %s", *addr)
-	err := http.ListenAndServe(*addr, mux)
+	err := http.ListenAndServe(*addr, app.Routes())
 	log.Fatal(err)
 }

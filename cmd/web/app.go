@@ -5,5 +5,6 @@ package main
 // for the path to the HTML templates directory, but we'll add more to it as our
 // build progresses.
 type App struct {
-	HTMLDir string
+	HTMLDir   string
+	StaticDir string
 }
