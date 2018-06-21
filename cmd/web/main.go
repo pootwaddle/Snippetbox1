@@ -4,6 +4,8 @@ import (
 	"flag"
 	"log"
 	"net/http"
+
+	"snippetbox/pkg/models"
 )
 
 func main() {
@@ -17,6 +19,7 @@ func main() {
 
 	// Initialize a new instance of App containing the dependencies.
 	app := &App{
+		Database:  &models.Database{},
 		HTMLDir:   *htmlDir,
 		StaticDir: *staticDir,
 	}
