@@ -1,11 +1,14 @@
 package models
 
 import (
+	"database/sql"
 	"time"
 )
 
 // Declare a Database type (for now it's just an empty struct).
-type Database struct{}
+type Database struct{
+	*sql.DB
+	}
 
 // Implement a GetSnippet() method on the Database type. For now, this just returns
 // some dummy data, but later we'll update it to query our MySQL database for a
