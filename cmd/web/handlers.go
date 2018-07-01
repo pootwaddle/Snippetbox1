@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 )
@@ -12,7 +11,7 @@ func (app *App) Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.RenderHTML(w, "home.page.html") // Use the app.RenderHTML() helper.
+	app.RenderHTML(w, "home.page.html", nil) // Use the app.RenderHTML() helper.
 
 }
 
@@ -33,7 +32,11 @@ func (app *App) ShowSnippet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprint(w, snippet)
+	// Render the show.page.html template, passing in the snippet data wrapped in
+	// our HTMLData struct.
+	app.RenderHTML(w, "show.page.html", &HTMLData{
+		Snippet: snippet,
+	})
 }
 
 // Add a placeholder NewSnippet handler function.
