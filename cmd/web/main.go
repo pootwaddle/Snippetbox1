@@ -59,4 +59,3 @@ func connect(dsn string) *sql.DB {
 
 	return db
 }
-
