@@ -113,3 +113,30 @@ func (db *Database) LatestSnippets() (Snippets, error) {
 	// If everything went OK then return the Snippets slice.
 	return snippets, nil
 }
+
+func (db *Database) InsertSnippet(title, content, expires string) (int, error) {
+	// Write the SQL statement we want to execute.
+	stmt := `INSERT INTO snippets (title, content, created, expires)
+    VALUES(?, ?, UTC_TIMESTAMP(), DATE_ADD(UTC_TIMESTAMP(), INTERVAL ? SECOND))`
+
+	// Use the db.Exec() method to execute the statement snippet, passing in values
+	// for our (untrusted) title, content and expiry placeholder parameters in
+	// exactly the same way that we did with the QueryRow() method. This returns
+	// a sql.Result object, which contains some basic information about what
+	// happened when the statement was executed.
+	result, err := db.Exec(stmt, title, content, expires)
+	if err != nil {
+		return 0, err
+	}
+
+	// Use the LastInsertId() method on the result object to get the ID of our
+	// newly inserted record in the snippets table.
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	// The ID returned is of type int64, so we convert it to an int type for
+	// returning from our Insert function.
+	return int(id), nil
+}
