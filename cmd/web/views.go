@@ -13,6 +13,7 @@ import (
 // want to display, which has the underling type *models.Snippet.
 type HTMLData struct {
 	Snippet *models.Snippet
+	Snippets []*models.Snippet
 }
 
 func (app *App) RenderHTML(w http.ResponseWriter, page string, data *HTMLData) {

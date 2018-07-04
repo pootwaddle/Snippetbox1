@@ -11,7 +11,16 @@ func (app *App) Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.RenderHTML(w, "home.page.html", nil) // Use the app.RenderHTML() helper.
+//Fetch a slice of the latest snippets from the database.
+snippets, err := app.Database.LatestSnippets()
+if err != nil {
+	app.ServerError(w,err)
+	return
+}
+
+	app.RenderHTML(w, "home.page.html", &HTMLData{
+		Snippets: snippets,
+	})
 
 }
 
