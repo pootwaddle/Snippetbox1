@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"snippetbox/pkg/models"
+	"github.com/pootwaddle/snippetbox1/pkg/models"
 )
 
 // Define a new HTMLData struct to act as a wrapper for the dynamic data we want
 // to pass to our templates. For now this just contains the snippet data that we
 // want to display, which has the underling type *models.Snippet.
 type HTMLData struct {
-	Snippet *models.Snippet
+	Snippet  *models.Snippet
 	Snippets []*models.Snippet
 }
 

@@ -8,7 +8,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"snippetbox/pkg/models"
+	"github.com/pootwaddle/snippetbox1/pkg/models"
 )
 
 func main() {

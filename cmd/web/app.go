@@ -1,7 +1,7 @@
 package main
 
 import (
-	"snippetbox/pkg/models"
+	"github.com/pootwaddle/snippetbox1/pkg/models"
 )
 
 // Define an App struct to hold the application-wide dependencies and configuration
